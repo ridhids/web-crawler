@@ -12,10 +12,11 @@ public class Main {
   
         // Given URL 
         String root 
-            = "https://wiprodigital.com"; 
+            = "http://wiprodigital.com"; 
   
         // Method call 
         web_crowler.discover(root); 
+        web_crowler.writeToFile("Wiprowebsitesdiscovered");
     } 
 
 }

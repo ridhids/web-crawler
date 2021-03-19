@@ -1,9 +1,11 @@
 package com.rnaidu.webcrawler.helper;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,6 +22,7 @@ public class WebCrawler {
 
 	// To store visited URls
 	private HashSet<String> discovered_websites;
+	
 
 	// Constructor for initialzing the
 	// required variables
@@ -51,14 +54,10 @@ public class WebCrawler {
 				try {
 					document = Jsoup.connect(v).get();
 				//3. Parse the HTML to extract links to other URLs
-	                Elements linksOnPage = document.select("a[href]");
-	                
-				//Pattern pattern = Pattern.compile(regex);
-
-				// To extract all the URL that
-				// matches the pattern in raw
-				//Matcher matcher = pattern.matcher(raw);
-
+					 Elements linksOnPage = document.select("a[href]");
+					// Elements linksOnPage = document.select("a[href^=\"https://wiprodigital.com/\"]");
+	              
+	                System.out.println("Website found on page are below "+v);
 				// It will loop until all the URLs
 				// in the current website get stored
 				// in the queue
@@ -76,11 +75,15 @@ public class WebCrawler {
 						// this URL in queue, print it
 						// and mark it as visited
 						discovered_websites.add(actual);
-						System.out.println("Website found: " + actual);
-
-						queue.add(actual);
+						System.out.println("links in the page :" + actual);
+						// below code will traverse only wiprodigital domain urls
+						 
+						if(actual.contains("https://wiprodigital.com")) {
+						queue.add(actual);}
 					}
 				}
+
+				
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					System.err.println("For '" + root + "': " + e.getMessage());
@@ -89,6 +92,29 @@ public class WebCrawler {
 			}
 		}
 	}
+	
+	
+	 public void writeToFile(String filename) {
+	        FileWriter writer;
+	        try {
+	            writer = new FileWriter(filename);
+	            java.util.Iterator<String> it = discovered_websites.iterator();
+	            while(it.hasNext()) {
+	                try {
+	                    String temp =  " (link: " + it.next() + ")\n";
+	                    //display to console
+	                   // System.out.println(temp);
+	                    //save to file
+	                    writer.write(temp);
+	                } catch (IOException e) {
+	                    System.err.println(e.getMessage());
+	                }
+	            }
+	            writer.close();
+	        } catch (IOException e) {
+	            System.err.println(e.getMessage());
+	        }
+	    }
 
 	
 	}
