@@ -7,7 +7,7 @@ The output file 'WiprowebsitesDiscovered' is all the links found through web cra
 qualifies the static content on html page.
 
 In future what can be done ?
-Considering the work here I did is in 2 days with a full time job :-), I can improvise on 
+Considering the work here I did is in 2 days, I can improvise on 
 1. More detailed output for end user to understand
 2. Use of JSOUP/regular expression to implement static content as well
 3. Create unit test cases 'JUNITS' in the project
